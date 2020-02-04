@@ -177,11 +177,11 @@ struct Vector2 {
 	}
 
 	inline Vector2 bounce(const Vector2 &p_normal) const {
-		return -reflect(p_normal);
+		return *this - p_normal * this->dot(p_normal) * 2.0;
 	}
 
 	inline Vector2 reflect(const Vector2 &p_vec) const {
-		return p_vec - *this * this->dot(p_vec) * 2.0;
+		return -bounce(p_vec);
 	}
 
 	inline real_t angle() const {
