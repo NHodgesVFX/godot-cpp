@@ -168,7 +168,7 @@ struct Vector3 {
 	Vector3 cubic_interpolate(const Vector3 &b, const Vector3 &pre_a, const Vector3 &post_b, const real_t t) const;
 
 	Vector3 bounce(const Vector3 &p_normal) const {
-		return -reflect(p_normal);
+		return *this - p_normal * this->dot(p_normal) * 2.f;
 	}
 
 	inline real_t length() const {
@@ -239,7 +239,7 @@ struct Vector3 {
 	}
 
 	inline Vector3 reflect(const Vector3 &by) const {
-		return by - *this * this->dot(by) * 2.f;
+		return -bounce(by);
 	}
 
 	inline Vector3 rotated(const Vector3 &axis, const real_t phi) const {
